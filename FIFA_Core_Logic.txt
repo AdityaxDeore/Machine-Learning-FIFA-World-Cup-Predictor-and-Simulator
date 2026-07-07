@@ -1,0 +1,174 @@
+================================================================================
+FIFA 2026 WINNER PREDICTOR & SIMULATOR - CORE ARCHITECTURE & LOGIC
+================================================================================
+
+This document details the core machine learning architecture, algorithms, and 
+logic implementation used in the FIFA World Cup 2026 Winner Predictor and Simulator.
+
+--------------------------------------------------------------------------------
+1. TECHNOLOGY STACK & PACKAGES USED
+--------------------------------------------------------------------------------
+- Frontend: HTML5, Vanilla CSS3 (Custom Neo-brutalist styling), Vanilla JavaScript
+  - Chart.js: Used for live-rendering of match outcome win/draw/loss percentages 
+              and top 5 most likely scorelines.
+- Backend: FastAPI (Python 3.13)
+  - Uvicorn: High-performance ASGI web server.
+  - Scikit-learn (RandomForestClassifier): Predicts win/draw/loss probability.
+  - Pandas & NumPy: Data processing, cleaning, and matrix mathematics.
+  - Hashlib & Math: Seeding random choices and Poisson probability density math.
+  - Pickle: Serializes and stores trained RandomForest model and computed ELOs.
+
+--------------------------------------------------------------------------------
+2. DATASETS INVOLVED
+--------------------------------------------------------------------------------
+- "international_matches.csv" (from GitHub): Historical results of all 49,497
+  international matches since 1872 (used to compute ELO ratings dynamically).
+- "teams.csv": Pre-tournament data for the 48 participating World Cup nations,
+  including managers, FIFA rankings, confederations, and base ELO ratings.
+- "player_stats.csv": Historical goals, assists, position, and shots data used to
+  calculate player goalscorer probabilities.
+
+--------------------------------------------------------------------------------
+3. CORE LOGIC PIECES & PYTHON CODE SAMPLES
+--------------------------------------------------------------------------------
+
+A. DYNAMIC ELO RATING SYSTEM (Calculated chronologically from 1872 to 2026)
+--------------------------------------------------------------------------------
+Elo ratings update after every match depending on match significance (K-Factor)
+and result expectations.
+
+Formula:
+  Expected_Outcome = 1 / (1 + 10 ** ((Elo_Away - Elo_Home) / 400))
+  New_Elo = Old_Elo + K * (Actual_Outcome - Expected_Outcome)
+
+K-Factors:
+  - FIFA World Cup Finals: K = 60
+  - Continental Tournaments / Qualifiers: K = 40 / 30
+  - Friendlies: K = 20
+
+Code Implementation:
+```python
+def get_k_factor(tournament):
+    t = str(tournament).lower()
+    if "fifa world cup" in t and "qualifying" not in t:
+        return 60
+    elif "cup" in t or "copa" in t or "euro" in t or "championship" in t:
+        if "qualifying" in t or "qualification" in t:
+            return 30
+        return 40
+    elif "friendly" in t:
+        return 20
+    else:
+        return 30
+
+# Iterating and updating ELOs chronologically:
+elo_ratings = {}
+for idx, row in df_hist.iterrows():
+    home, away = row["home_team"], row["away_team"]
+    home_elo = elo_ratings.get(home, 1500.0)
+    away_elo = elo_ratings.get(away, 1500.0)
+    
+    K = get_k_factor(row.get("tournament", ""))
+    hs, as_ = row["home_score"], row["away_score"]
+    
+    actual_home = 1.0 if hs > as_ else (0.0 if hs < as_ else 0.5)
+    expected_home = 1.0 / (1.0 + 10.0 ** ((away_elo - home_elo) / 400.0))
+    
+    elo_ratings[home] = home_elo + K * (actual_home - expected_home)
+    elo_ratings[away] = away_elo + K * ((1.0 - actual_home) - (1.0 - expected_home))
+```
+
+B. MACHINE LEARNING MODEL TRAINING (train_fifa_model.py)
+--------------------------------------------------------------------------------
+Trains a Random Forest Classifier on historical ELO differences to predict 
+categorical outcomes (0 = Away Win, 1 = Draw, 2 = Home Win).
+
+Features: `[elo_diff, neutral_status, home_elo, away_elo]`
+Target: `[0 (Away Win), 1 (Draw), 2 (Home Win)]`
+
+Model Parameters:
+```python
+rf_model = RandomForestClassifier(
+    n_estimators=300,
+    max_depth=8,
+    min_samples_split=4,
+    min_samples_leaf=2,
+    random_state=42,
+    n_jobs=-1
+)
+rf_model.fit(X, y)
+```
+
+C. EXPECTED GOALS (xG) CALCULATION
+--------------------------------------------------------------------------------
+Calculated from the ELO difference and venue status to represent scoring rate.
+```python
+adj_diff = elo_diff
+if not neutral_venue:
+    adj_diff += 100.0 # Home advantage ELO boost
+    
+avg_goals = 1.35
+exp_g1 = avg_goals * (10 ** (adj_diff / 400.0)) ** 0.35
+exp_g2 = avg_goals * (10 ** (-adj_diff / 400.0)) ** 0.35
+```
+
+D. OUTCOME-CONSTRAINED POISSON MODE SCORELINE (server.py)
+--------------------------------------------------------------------------------
+Determines the predicted scoreline by selecting the single most probable 
+combination of goals (g1, g2) under Poisson distributions, constrained by 
+the Random Forest predicted outcome class.
+
+Poisson Formula:
+  P(k; xG) = (e ** -xG) * (xG ** k) / k!
+
+Code Implementation:
+```python
+best_score = (0, 0)
+max_p_constrained = -1
+
+for g1 in range(8):
+    for g2 in range(8):
+        is_match = False
+        if pred_outcome == 2 and g1 > g2:    # Home Win
+            is_match = True
+        elif pred_outcome == 0 and g1 < g2:  # Away Win
+            is_match = True
+        elif pred_outcome == 1 and g1 == g2: # Draw
+            is_match = True
+            
+        if is_match:
+            p_h = np.exp(-exp_g1) * (exp_g1 ** g1) / math.factorial(g1)
+            p_a = np.exp(-exp_g2) * (exp_g2 ** g2) / math.factorial(g2)
+            p_joint = p_h * p_a
+            if p_joint > max_p_constrained:
+                max_p_constrained = p_joint
+                best_score = (g1, g2)
+```
+
+E. TOURNAMENT SIMULATION LOGIC (5,000-run Monte Carlo)
+--------------------------------------------------------------------------------
+Simulates bracket matches. If it's a knockout match, it resolves draws using 
+win/loss probability ratios. ELO ratings update dynamically throughout the 
+tournament simulation to simulate team momentum.
+```python
+def simulate_single_match_fast(t1, t2, elos_dict, is_knockout=True):
+    elo1 = elos_dict.get(t1, 1500.0)
+    elo2 = elos_dict.get(t2, 1500.0)
+    elo_diff = elo1 - elo2
+    
+    probs = rf_model.predict_proba([[elo_diff, 1, elo1, elo2]])[0]
+    prob_away, prob_draw, prob_home = probs[0], probs[1], probs[2]
+    
+    if is_knockout:
+        p_win = prob_home / (prob_home + prob_away)
+        p_lose = prob_away / (prob_home + prob_away)
+        winner = np.random.choice([t1, t2], p=[p_win, p_lose])
+        
+        # Dynamic ELO update for tournament momentum
+        expected_1 = 1.0 / (1.0 + 10.0 ** (-elo_diff / 400.0))
+        outcome_1 = 1.0 if winner == t1 else 0.0
+        elos_dict[t1] = elo1 + 60 * (outcome_1 - expected_1)
+        elos_dict[t2] = elo2 + 60 * ((1.0 - outcome_1) - (1.0 - expected_1))
+        return winner
+```
+================================================================================

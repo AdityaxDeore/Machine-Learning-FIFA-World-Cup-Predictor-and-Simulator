@@ -1,0 +1,73 @@
+fixture_id,kickoff_utc,group,matchday,home_code,home_name,away_code,away_name,model_home_pct,model_draw_pct,model_away_pct,favourite_code,actual_home_goals,actual_away_goals,verdict
+wc-a-md1-mex-rsa,2026-06-11T19:00:00.000Z,A,1,mex,Mexico,rsa,South Africa,85.00,10.00,5.00,mex,2,0,fav_won
+wc-a-md1-kor-cze,2026-06-12T02:00:00.000Z,A,1,kor,South Korea,cze,Czechia,51.00,24.00,25.00,kor,2,1,fav_won
+wc-b-md1-can-bih,2026-06-12T19:00:00.000Z,B,1,can,Canada,bih,Bosnia & Herzegovina,84.00,10.00,6.00,can,1,1,draw
+wc-d-md1-usa-par,2026-06-13T01:00:00.000Z,D,1,usa,United States,par,Paraguay,82.00,10.00,8.00,usa,4,1,fav_won
+wc-b-md1-qat-sui,2026-06-13T19:00:00.000Z,B,1,qat,Qatar,sui,Switzerland,6.00,10.00,84.00,sui,1,1,draw
+wc-c-md1-bra-mar,2026-06-13T22:00:00.000Z,C,1,bra,Brazil,mar,Morocco,50.00,23.00,27.00,bra,1,1,draw
+wc-c-md1-hai-sco,2026-06-14T01:00:00.000Z,C,1,hai,Haiti,sco,Scotland,6.00,9.00,85.00,sco,0,1,fav_won
+wc-d-md1-aus-tur,2026-06-14T04:00:00.000Z,D,1,aus,Australia,tur,Türkiye,25.00,24.00,51.00,tur,2,0,upset
+wc-e-md1-ger-cuw,2026-06-14T17:00:00.000Z,E,1,ger,Germany,cuw,Curaçao,85.00,10.00,5.00,ger,7,1,fav_won
+wc-f-md1-ned-jpn,2026-06-14T20:00:00.000Z,F,1,ned,Netherlands,jpn,Japan,58.00,22.00,20.00,ned,2,2,draw
+wc-e-md1-civ-ecu,2026-06-14T23:00:00.000Z,E,1,civ,Ivory Coast,ecu,Ecuador,22.00,24.00,54.00,ecu,1,0,upset
+wc-f-md1-swe-tun,2026-06-15T02:00:00.000Z,F,1,swe,Sweden,tun,Tunisia,52.00,24.00,24.00,swe,5,1,fav_won
+wc-h-md1-esp-cpv,2026-06-15T16:00:00.000Z,H,1,esp,Spain,cpv,Cape Verde,85.00,10.00,5.00,esp,0,0,draw
+wc-g-md1-bel-egy,2026-06-15T19:00:00.000Z,G,1,bel,Belgium,egy,Egypt,69.00,18.00,13.00,bel,1,1,draw
+wc-h-md1-ksa-uru,2026-06-15T22:00:00.000Z,H,1,ksa,Saudi Arabia,uru,Uruguay,6.00,9.00,85.00,uru,1,1,draw
+wc-g-md1-irn-nzl,2026-06-16T01:00:00.000Z,G,1,irn,Iran,nzl,New Zealand,85.00,10.00,5.00,irn,2,2,draw
+wc-i-md1-fra-sen,2026-06-16T19:00:00.000Z,I,1,fra,France,sen,Senegal,56.00,23.00,21.00,fra,3,1,fav_won
+wc-i-md1-irq-nor,2026-06-16T22:00:00.000Z,I,1,irq,Iraq,nor,Norway,7.00,10.00,83.00,nor,1,4,fav_won
+wc-j-md1-arg-alg,2026-06-17T01:00:00.000Z,J,1,arg,Argentina,alg,Algeria,81.00,11.00,8.00,arg,3,0,fav_won
+wc-j-md1-aut-jor,2026-06-17T04:00:00.000Z,J,1,aut,Austria,jor,Jordan,84.00,10.00,6.00,aut,3,1,fav_won
+wc-k-md1-por-cod,2026-06-17T17:00:00.000Z,K,1,por,Portugal,cod,DR Congo,85.00,9.00,6.00,por,1,1,draw
+wc-l-md1-eng-cro,2026-06-17T20:00:00.000Z,L,1,eng,England,cro,Croatia,51.00,24.00,25.00,eng,4,2,fav_won
+wc-l-md1-gha-pan,2026-06-17T23:00:00.000Z,L,1,gha,Ghana,pan,Panama,6.00,10.00,84.00,pan,1,0,upset
+wc-k-md1-uzb-col,2026-06-18T02:00:00.000Z,K,1,uzb,Uzbekistan,col,Colombia,6.00,10.00,84.00,col,1,3,fav_won
+wc-a-md2-cze-rsa,2026-06-18T16:00:00.000Z,A,2,cze,Czechia,rsa,South Africa,68.00,18.00,14.00,cze,1,1,draw
+wc-b-md2-sui-bih,2026-06-18T19:00:00.000Z,B,2,sui,Switzerland,bih,Bosnia & Herzegovina,85.00,9.00,6.00,sui,4,1,fav_won
+wc-b-md2-can-qat,2026-06-18T22:00:00.000Z,B,2,can,Canada,qat,Qatar,84.00,9.00,7.00,can,6,0,fav_won
+wc-a-md2-mex-kor,2026-06-19T01:00:00.000Z,A,2,mex,Mexico,kor,South Korea,64.00,20.00,16.00,mex,1,0,fav_won
+wc-d-md2-usa-aus,2026-06-19T19:00:00.000Z,D,2,usa,United States,aus,Australia,67.00,18.00,15.00,usa,2,0,fav_won
+wc-c-md2-sco-mar,2026-06-19T22:00:00.000Z,C,2,sco,Scotland,mar,Morocco,8.00,11.00,81.00,mar,0,1,fav_won
+wc-c-md2-bra-hai,2026-06-20T00:30:00.000Z,C,2,bra,Brazil,hai,Haiti,85.00,10.00,5.00,bra,3,0,fav_won
+wc-d-md2-tur-par,2026-06-20T03:00:00.000Z,D,2,tur,Türkiye,par,Paraguay,58.00,23.00,19.00,tur,0,1,upset
+wc-f-md2-ned-swe,2026-06-20T17:00:00.000Z,F,2,ned,Netherlands,swe,Sweden,83.00,10.00,7.00,ned,5,1,fav_won
+wc-e-md2-ger-civ,2026-06-20T20:00:00.000Z,E,2,ger,Germany,civ,Ivory Coast,77.00,13.00,10.00,ger,2,1,fav_won
+wc-e-md2-ecu-cuw,2026-06-21T00:00:00.000Z,E,2,ecu,Ecuador,cuw,Curaçao,85.00,10.00,5.00,ecu,0,0,draw
+wc-f-md2-tun-jpn,2026-06-21T04:00:00.000Z,F,2,tun,Tunisia,jpn,Japan,12.00,15.00,73.00,jpn,0,4,fav_won
+wc-h-md2-esp-ksa,2026-06-21T16:00:00.000Z,H,2,esp,Spain,ksa,Saudi Arabia,85.00,10.00,5.00,esp,4,0,fav_won
+wc-g-md2-bel-irn,2026-06-21T19:00:00.000Z,G,2,bel,Belgium,irn,Iran,58.00,22.00,20.00,bel,0,0,draw
+wc-h-md2-uru-cpv,2026-06-21T22:00:00.000Z,H,2,uru,Uruguay,cpv,Cape Verde,85.00,10.00,5.00,uru,2,2,draw
+wc-g-md2-nzl-egy,2026-06-22T01:00:00.000Z,G,2,nzl,New Zealand,egy,Egypt,5.00,10.00,85.00,egy,1,3,fav_won
+wc-j-md2-arg-aut,2026-06-22T17:00:00.000Z,J,2,arg,Argentina,aut,Austria,65.00,19.00,16.00,arg,2,0,fav_won
+wc-i-md2-fra-irq,2026-06-22T21:00:00.000Z,I,2,fra,France,irq,Iraq,85.00,10.00,5.00,fra,3,0,fav_won
+wc-i-md2-nor-sen,2026-06-23T00:00:00.000Z,I,2,nor,Norway,sen,Senegal,23.00,24.00,53.00,sen,3,2,upset
+wc-j-md2-jor-alg,2026-06-23T03:00:00.000Z,J,2,jor,Jordan,alg,Algeria,7.00,9.00,84.00,alg,1,2,fav_won
+wc-k-md2-por-uzb,2026-06-23T17:00:00.000Z,K,2,por,Portugal,uzb,Uzbekistan,85.00,9.00,6.00,por,5,0,fav_won
+wc-l-md2-eng-gha,2026-06-23T20:00:00.000Z,L,2,eng,England,gha,Ghana,85.00,10.00,5.00,eng,0,0,draw
+wc-l-md2-pan-cro,2026-06-23T23:00:00.000Z,L,2,pan,Panama,cro,Croatia,11.00,14.00,75.00,cro,0,1,fav_won
+wc-k-md2-col-cod,2026-06-24T02:00:00.000Z,K,2,col,Colombia,cod,DR Congo,84.00,10.00,6.00,col,1,0,fav_won
+wc-b-md3-sui-can,2026-06-24T19:00:00.000Z,B,3,sui,Switzerland,can,Canada,50.00,23.00,27.00,sui,2,1,fav_won
+wc-b-md3-bih-qat,2026-06-24T19:00:00.000Z,B,3,bih,Bosnia & Herzegovina,qat,Qatar,27.00,23.00,50.00,qat,3,1,upset
+wc-c-md3-mar-hai,2026-06-24T22:00:00.000Z,C,3,mar,Morocco,hai,Haiti,85.00,10.00,5.00,mar,4,2,fav_won
+wc-c-md3-sco-bra,2026-06-24T22:00:00.000Z,C,3,sco,Scotland,bra,Brazil,6.00,10.00,84.00,bra,0,3,fav_won
+wc-a-md3-rsa-kor,2026-06-25T01:00:00.000Z,A,3,rsa,South Africa,kor,South Korea,7.00,9.00,84.00,kor,1,0,upset
+wc-a-md3-cze-mex,2026-06-25T01:00:00.000Z,A,3,cze,Czechia,mex,Mexico,7.00,10.00,83.00,mex,0,3,fav_won
+wc-e-md3-cuw-civ,2026-06-25T20:00:00.000Z,E,3,cuw,Curaçao,civ,Ivory Coast,6.00,9.00,85.00,civ,0,2,fav_won
+wc-e-md3-ecu-ger,2026-06-25T20:00:00.000Z,E,3,ecu,Ecuador,ger,Germany,23.00,23.00,54.00,ger,2,1,upset
+wc-f-md3-tun-ned,2026-06-25T23:00:00.000Z,F,3,tun,Tunisia,ned,Netherlands,6.00,10.00,84.00,ned,1,3,fav_won
+wc-f-md3-jpn-swe,2026-06-25T23:00:00.000Z,F,3,jpn,Japan,swe,Sweden,54.00,24.00,22.00,jpn,1,1,draw
+wc-d-md3-tur-usa,2026-06-26T02:00:00.000Z,D,3,tur,Türkiye,usa,United States,24.00,23.00,53.00,usa,3,2,upset
+wc-d-md3-par-aus,2026-06-26T02:00:00.000Z,D,3,par,Paraguay,aus,Australia,26.00,24.00,50.00,aus,0,0,draw
+wc-i-md3-nor-fra,2026-06-26T19:00:00.000Z,I,3,nor,Norway,fra,France,8.00,12.00,80.00,fra,1,4,fav_won
+wc-i-md3-sen-irq,2026-06-26T19:00:00.000Z,I,3,sen,Senegal,irq,Iraq,85.00,9.00,6.00,sen,5,0,fav_won
+wc-h-md3-cpv-ksa,2026-06-27T00:00:00.000Z,H,3,cpv,Cape Verde,ksa,Saudi Arabia,26.00,24.00,50.00,ksa,0,0,draw
+wc-h-md3-uru-esp,2026-06-27T00:00:00.000Z,H,3,uru,Uruguay,esp,Spain,21.00,24.00,55.00,esp,0,1,fav_won
+wc-g-md3-nzl-bel,2026-06-27T03:00:00.000Z,G,3,nzl,New Zealand,bel,Belgium,5.00,10.00,85.00,bel,1,5,fav_won
+wc-g-md3-egy-irn,2026-06-27T03:00:00.000Z,G,3,egy,Egypt,irn,Iran,27.00,23.00,50.00,irn,1,1,draw
+wc-l-md3-pan-eng,2026-06-27T21:00:00.000Z,L,3,pan,Panama,eng,England,6.00,10.00,84.00,eng,0,2,fav_won
+wc-l-md3-cro-gha,2026-06-27T21:00:00.000Z,L,3,cro,Croatia,gha,Ghana,85.00,10.00,5.00,cro,2,1,fav_won
+wc-k-md3-col-por,2026-06-27T23:30:00.000Z,K,3,col,Colombia,por,Portugal,26.00,24.00,50.00,por,0,0,draw
+wc-k-md3-cod-uzb,2026-06-27T23:30:00.000Z,K,3,cod,DR Congo,uzb,Uzbekistan,50.00,23.00,27.00,cod,3,1,fav_won
+wc-j-md3-alg-aut,2026-06-28T02:00:00.000Z,J,3,alg,Algeria,aut,Austria,26.00,24.00,50.00,aut,3,3,draw
+wc-j-md3-jor-arg,2026-06-28T02:00:00.000Z,J,3,jor,Jordan,arg,Argentina,5.00,10.00,85.00,arg,1,3,fav_won

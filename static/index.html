@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIFA World Cup 2026 Simulator</title>
+    <meta name="description" content="AI-powered FIFA World Cup 2026 match predictor, knockout simulator, and ELO standings using machine learning.">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-badge">ML-Powered</div>
+            <h1 class="app-title">FIFA World Cup 2026</h1>
+            <p class="app-subtitle">Machine Learning Match Predictor &amp; Tournament Simulator</p>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="navigation-tabs">
+            <button class="nav-tab active" data-tab="tab-predictor">Match Predictor</button>
+            <button class="nav-tab" data-tab="tab-simulator">Knockout Simulator</button>
+            <button class="nav-tab" data-tab="tab-standings">ELO Standings</button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Tab 1: Predictor -->
+            <section id="tab-predictor" class="tab-content active">
+
+                <!-- Input Panel -->
+                <div class="neo-card input-panel">
+                    <div class="form-row" style="align-items:flex-start;">
+                        <div class="form-group flex-2">
+                            <label>Select Team Pool</label>
+                            <div class="radio-group">
+                                <label class="radio-label" style="color:#000;">
+                                    <input type="radio" name="team-pool" value="wc" checked>
+                                    World Cup 2026 Qualified Teams (48)
+                                </label>
+                                <label class="radio-label" style="color:#000;">
+                                    <input type="radio" name="team-pool" value="all">
+                                    All International Teams
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group flex-1 checkbox-group">
+                            <label class="checkbox-label" style="color:#000;">
+                                <input type="checkbox" id="neutral-venue" checked>
+                                Neutral Ground
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-row selectors-row" style="flex-wrap:nowrap; gap:16px;">
+                        <div class="form-group" style="flex:1; min-width:0;">
+                            <label for="select-team1" style="color:#000;">Home / First Team</label>
+                            <select id="select-team1" class="selectbox"></select>
+                        </div>
+                        <div class="vs-center-label">VS</div>
+                        <div class="form-group" style="flex:1; min-width:0;">
+                            <label for="select-team2" style="color:#000;">Away / Second Team</label>
+                            <select id="select-team2" class="selectbox"></select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Matchup Preview Banner -->
+                <div class="neo-card matchup-preview">
+                    <div class="matchup-banner">
+                        <div class="team-side">
+                            <div class="flag-wrapper">
+                                <img id="preview-flag1" src="https://flagcdn.com/w80/un.png" alt="Team 1 Flag">
+                            </div>
+                            <h2 id="preview-name1" class="team-name">Select Team</h2>
+                            <div id="preview-elo1" class="team-elo-badge">ELO: -</div>
+                        </div>
+                        <div class="vs-divider">
+                            <span class="vs-badge">VS</span>
+                        </div>
+                        <div class="team-side">
+                            <div class="flag-wrapper">
+                                <img id="preview-flag2" src="https://flagcdn.com/w80/un.png" alt="Team 2 Flag">
+                            </div>
+                            <h2 id="preview-name2" class="team-name">Select Team</h2>
+                            <div id="preview-elo2" class="team-elo-badge">ELO: -</div>
+                        </div>
+                    </div>
+                    <button id="btn-predict" class="btn-primary">Run ML Prediction</button>
+                </div>
+
+                <!-- Prediction Results -->
+                <div id="prediction-results" class="results-container hidden">
+
+                    <!-- Score Forecast Card -->
+                    <div class="neo-card forecast-summary-card">
+                        <div class="neo-card-header">
+                            <span>Match Outcome Forecast</span>
+                            <span class="header-badge-sm">PROJECTION</span>
+                        </div>
+                        <div class="matchup-banner outcome-banner">
+                            <div class="team-side">
+                                <div class="flag-wrapper small">
+                                    <img id="result-flag1" src="" alt="T1">
+                                </div>
+                                <h3 id="result-name1" class="team-name result-team-name"></h3>
+                            </div>
+                            <div class="score-display">
+                                <span id="predicted-score1">0</span>
+                                <span class="score-dash">-</span>
+                                <span id="predicted-score2">0</span>
+                            </div>
+                            <div class="team-side">
+                                <h3 id="result-name2" class="team-name result-team-name"></h3>
+                                <div class="flag-wrapper small">
+                                    <img id="result-flag2" src="" alt="T2">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Win probability bars -->
+                        <div class="prob-bars-section">
+                            <div class="prob-bar-label-row">
+                                <span id="prob-label-home" class="prob-team-label">Team 1</span>
+                                <span class="prob-bar-title">WIN / DRAW / LOSS PROBABILITY (%)</span>
+                                <span id="prob-label-away" class="prob-team-label">Team 2</span>
+                            </div>
+                            <div class="prob-track">
+                                <div id="prob-bar-home" class="prob-segment seg-home" style="width:33%"></div>
+                                <div id="prob-bar-draw" class="prob-segment seg-draw" style="width:34%"></div>
+                                <div id="prob-bar-away" class="prob-segment seg-away" style="width:33%"></div>
+                            </div>
+                            <div class="prob-values-row">
+                                <span id="prob-val-home" class="prob-value">-</span>
+                                <span id="prob-val-draw" class="prob-value draw-val">DRAW: -</span>
+                                <span id="prob-val-away" class="prob-value">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Charts row -->
+                    <div class="charts-row">
+                        <div class="neo-card chart-card">
+                            <div class="neo-card-header">Win / Draw / Loss Probability (%)</div>
+                            <div class="chart-container">
+                                <canvas id="chart-outcome"></canvas>
+                            </div>
+                        </div>
+                        <div class="neo-card chart-card">
+                            <div class="neo-card-header">Top 5 Most Likely Scorelines (%)</div>
+                            <div class="chart-container">
+                                <canvas id="chart-scorelines"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Stats -->
+                    <div class="neo-card details-card">
+                        <div class="neo-card-header">Detailed Statistical Comparison</div>
+                        <div class="stats-comparison-grid" id="stats-grid"></div>
+                    </div>
+
+                    <!-- Top Scorers -->
+                    <div class="scorers-row">
+                        <div class="neo-card scorers-card">
+                            <div class="neo-card-header"><span id="scorers-t1-name">Team 1</span> Top Scorer Probs</div>
+                            <div class="scorers-list" id="scorers-list1"></div>
+                        </div>
+                        <div class="neo-card scorers-card">
+                            <div class="neo-card-header"><span id="scorers-t2-name">Team 2</span> Top Scorer Probs</div>
+                            <div class="scorers-list" id="scorers-list2"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 2: Tournament Simulator -->
+            <section id="tab-simulator" class="tab-content">
+                <div class="neo-card input-panel">
+                    <div class="neo-card-header">Tournament Simulation Dashboard</div>
+                    <p class="section-desc">Forecast the remainder of the 2026 World Cup from Round of 16 using dynamic ELO updates and the trained RF model.</p>
+                    <div class="form-row align-center">
+                        <div class="form-group flex-2">
+                            <label for="slider-runs">Monte Carlo Simulation Runs:</label>
+                            <div class="slider-container">
+                                <input type="range" id="slider-runs" min="100" max="10000" step="100" value="5000">
+                                <span id="slider-runs-val">5000</span>
+                            </div>
+                        </div>
+                        <div class="form-group flex-1 buttons-stack">
+                            <button id="btn-run-bracket" class="btn-primary">Simulate Single Run Bracket</button>
+                            <button id="btn-run-monte-carlo" class="btn-secondary">Run Multi-Run Simulation</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="bracket-results" class="results-container hidden">
+                    <div class="neo-card bracket-card">
+                        <div class="neo-card-header">Simulated World Cup Knockout Bracket</div>
+                        <div class="bracket-wrapper" id="bracket-tree-container"></div>
+                    </div>
+                </div>
+
+                <div id="monte-carlo-results" class="results-container hidden">
+                    <div class="progress-bar-container hidden" id="mc-progress-box">
+                        <div class="progress-bar-fill" id="mc-progress-fill" style="width: 0%"></div>
+                        <span id="mc-progress-text">Simulating...</span>
+                    </div>
+                    <div class="neo-card table-card">
+                        <div class="neo-card-header">Monte Carlo World Cup Winning Probabilities (%)</div>
+                        <table class="data-table" id="table-monte-carlo">
+                            <thead>
+                                <tr>
+                                    <th>Team</th>
+                                    <th>Round of 16</th>
+                                    <th>Quarterfinals</th>
+                                    <th>Semifinals</th>
+                                    <th>Finals</th>
+                                    <th>Champion</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div class="neo-card chart-card-large">
+                        <div class="neo-card-header">Probability of Winning World Cup (%)</div>
+                        <div class="chart-container-large">
+                            <canvas id="chart-winner"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tab 3: Standings -->
+            <section id="tab-standings" class="tab-content">
+                <div class="neo-card filter-panel">
+                    <div class="neo-card-header">Team Rankings &amp; ELO Standings</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="filter-group">Filter by World Cup Group</label>
+                            <select id="filter-group" class="selectbox">
+                                <option value="All Groups">All Groups</option>
+                                <option value="A">Group A</option><option value="B">Group B</option>
+                                <option value="C">Group C</option><option value="D">Group D</option>
+                                <option value="E">Group E</option><option value="F">Group F</option>
+                                <option value="G">Group G</option><option value="H">Group H</option>
+                                <option value="I">Group I</option><option value="J">Group J</option>
+                                <option value="K">Group K</option><option value="L">Group L</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="filter-conf">Filter by Confederation</label>
+                            <select id="filter-conf" class="selectbox">
+                                <option value="All Confederations">All Confederations</option>
+                                <option value="UEFA">UEFA (Europe)</option>
+                                <option value="CONMEBOL">CONMEBOL (South America)</option>
+                                <option value="CONCACAF">CONCACAF (North America)</option>
+                                <option value="CAF">CAF (Africa)</option>
+                                <option value="AFC">AFC (Asia)</option>
+                                <option value="OFC">OFC (Oceania)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="neo-card table-card">
+                    <table class="data-table" id="table-standings-list">
+                        <thead>
+                            <tr>
+                                <th>Pos</th><th>Team</th><th>Group</th><th>Confederation</th>
+                                <th>Manager</th><th>FIFA Rank</th><th>Base ELO</th>
+                                <th>Current ELO</th><th>ELO Gain/Loss</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>

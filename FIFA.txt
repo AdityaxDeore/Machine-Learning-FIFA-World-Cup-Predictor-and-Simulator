@@ -1,0 +1,334 @@
+import os
+import urllib.request
+import pandas as pd
+import numpy as np
+import math
+import pickle
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, classification_report, roc_auc_score
+import kagglehub
+from kagglehub import KaggleDatasetAdapter
+
+print("Imported all necessary libraries.")
+
+print("Loading FIFA World Cup 2026 Kaggle dataset...")
+teams_df = kagglehub.dataset_load(
+    KaggleDatasetAdapter.PANDAS,
+    "mominullptr/fifa-world-cup-2026-dataset/versions/55",
+    "teams.csv"
+)
+matches_det_df = kagglehub.dataset_load(
+    KaggleDatasetAdapter.PANDAS,
+    "mominullptr/fifa-world-cup-2026-dataset/versions/55",
+    "matches_detailed.csv"
+)
+player_stats_df = kagglehub.dataset_load(
+    KaggleDatasetAdapter.PANDAS,
+    "mominullptr/fifa-world-cup-2026-dataset/versions/55",
+    "player_stats.csv"
+)
+
+print(f"Loaded teams shape: {teams_df.shape}")
+print(f"Loaded matches detailed shape: {matches_det_df.shape}")
+print(f"Loaded player stats shape: {player_stats_df.shape}")
+
+github_url = "https://raw.githubusercontent.com/martj42/international_results/master/results.csv"
+local_path = "international_matches.csv"
+headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+
+print("Downloading updated matches from GitHub...")
+try:
+    req = urllib.request.Request(github_url, headers=headers)
+    with urllib.request.urlopen(req) as response:
+        with open(local_path, "wb") as f:
+            f.write(response.read())
+    print("Success! Dataset updated.")
+except Exception as e:
+    print(f"Download failed, using existing file. Error: {e}")
+
+print("Calculating dynamic ELO ratings...")
+df_hist = pd.read_csv("international_matches.csv")
+df_hist["date"] = pd.to_datetime(df_hist["date"])
+df_hist = df_hist.sort_values("date").reset_index(drop=True)
+
+name_mapping = {
+    "Korea Republic": "South Korea",
+    "Czech Republic": "Czechia",
+    "Turkey": "Türkiye"
+}
+df_hist["home_team"] = df_hist["home_team"].replace(name_mapping)
+df_hist["away_team"] = df_hist["away_team"].replace(name_mapping)
+
+def get_k_factor(tournament):
+    t = str(tournament).lower()
+    if "fifa world cup" in t and "qualifying" not in t:
+        return 60
+    elif "cup" in t or "copa" in t or "euro" in t or "championship" in t:
+        if "qualifying" in t or "qualification" in t:
+            return 30
+        return 40
+    elif "friendly" in t:
+        return 20
+    else:
+        return 30
+
+elo_ratings = {}
+home_elos = []
+away_elos = []
+
+for idx, row in df_hist.iterrows():
+    home = row["home_team"]
+    away = row["away_team"]
+    
+    home_elo = elo_ratings.get(home, 1500.0)
+    away_elo = elo_ratings.get(away, 1500.0)
+    
+    home_elos.append(home_elo)
+    away_elos.append(away_elo)
+    
+    K = get_k_factor(row["tournament"])
+    hs = row["home_score"]
+    as_ = row["away_score"]
+    
+    if hs > as_:
+        outcome_home = 1.0
+    elif hs < as_:
+        outcome_home = 0.0
+    else:
+        outcome_home = 0.5
+        
+    expected_home = 1.0 / (1.0 + 10.0 ** ((away_elo - home_elo) / 400.0))
+    
+    elo_ratings[home] = home_elo + K * (outcome_home - expected_home)
+    elo_ratings[away] = away_elo + K * ((1.0 - outcome_home) - (1.0 - expected_home))
+
+df_hist["home_elo"] = home_elos
+df_hist["away_elo"] = away_elos
+print("Dynamic ELO ratings calculated successfully.")
+
+print("Preparing features and training model...")
+features = []
+targets = []
+
+for idx, row in df_hist.iterrows():
+    home_elo = row["home_elo"]
+    away_elo = row["away_elo"]
+    elo_diff = home_elo - away_elo
+    neutral = 1 if row["neutral"] else 0
+    
+    hs = row["home_score"]
+    as_ = row["away_score"]
+    
+    if hs > as_:
+        target = 2
+    elif hs < as_:
+        target = 0
+    else:
+        target = 1
+        
+    features.append([elo_diff, neutral, home_elo, away_elo])
+    targets.append(target)
+
+X = pd.DataFrame(features, columns=["elo_diff", "neutral", "home_elo", "away_elo"])
+y = pd.Series(targets)
+
+train_mask = df_hist["date"] < "2022-01-01"
+test_mask = df_hist["date"] >= "2022-01-01"
+X_train, X_test = X[train_mask], X[test_mask]
+y_train, y_test = y[train_mask], y[test_mask]
+
+rf_model = RandomForestClassifier(n_estimators=150, max_depth=8, random_state=42)
+rf_model.fit(X_train, y_train)
+
+acc = accuracy_score(y_test, rf_model.predict(X_test))
+print(f"Random Forest Classifier Accuracy on Test Set (2022-2026): {acc:.2%}")
+print("\nClassification Report:")
+print(classification_report(y_test, rf_model.predict(X_test), target_names=["Lose", "Draw", "Win"]))
+
+teams_df["clean_name"] = teams_df["team_name"].str.replace("T\ufffdrkiye", "T\u00fcrkiye")
+
+team_elos = {}
+for idx, row in teams_df.iterrows():
+    name = row["clean_name"]
+    lookup_name = name.replace("T\u00fcrkiye", "Turkey")
+    team_elos[name] = elo_ratings.get(lookup_name, row["elo_rating"])
+print("Baseline ELO ratings mapped for all 48 teams.")
+
+def get_player_goalscorer_probs(team_name, expected_goals):
+    team_row = teams_df[teams_df["clean_name"] == team_name]
+    if team_row.empty:
+        return []
+    t_id = team_row.iloc[0]["team_id"]
+    
+    players = player_stats_df[player_stats_df["team_id"] == t_id].copy()
+    if players.empty:
+        return []
+    
+    players["goals"] = players["goals"].fillna(0)
+    players["shots_on_target"] = players["shots_on_target"].fillna(0)
+    players["assists"] = players["assists"].fillna(0)
+    
+    position_baselines = {"FWD": 0.5, "MID": 0.2, "DEF": 0.05, "GK": 0.0}
+    players["pos_baseline"] = players["position"].map(position_baselines).fillna(0.1)
+    
+    players["weight"] = (players["goals"] * 5.0 + 
+                        players["shots_on_target"] * 1.5 + 
+                        players["assists"] * 1.0 + 
+                        players["pos_baseline"])
+    
+    total_weight = players["weight"].sum()
+    if total_weight > 0:
+        players["rel_weight"] = players["weight"] / total_weight
+    else:
+        players["rel_weight"] = 1.0 / len(players)
+        
+    players["score_prob"] = 1.0 - np.exp(-expected_goals * players["rel_weight"])
+    top = players.sort_values(by="score_prob", ascending=False).head(3)
+    return [(row["player_name"], row["score_prob"]) for idx, row in top.iterrows()]
+
+def predict_custom_match(team1, team2, neutral=True):
+    if team1 not in team_elos or team2 not in team_elos:
+        print("Error: Team name not found. Check teams_df['clean_name'] for valid names.")
+        return
+        
+    elo1 = team_elos[team1]
+    elo2 = team_elos[team2]
+    elo_diff = elo1 - elo2
+    neutral_val = 1 if neutral else 0
+    
+    features_df = pd.DataFrame([[elo_diff, neutral_val, elo1, elo2]], 
+                               columns=["elo_diff", "neutral", "home_elo", "away_elo"])
+    probs = rf_model.predict_proba(features_df)[0]
+    
+    win_pct = probs[2] / (probs[0] + probs[2])
+    lose_pct = probs[0] / (probs[0] + probs[2])
+    
+    adj_diff = elo_diff
+    if not neutral:
+        adj_diff += 100.0
+        
+    avg_goals = 1.35
+    exp_g1 = avg_goals * (10 ** (adj_diff / 400.0)) ** 0.35
+    exp_g2 = avg_goals * (10 ** (-adj_diff / 400.0)) ** 0.35
+    
+    max_p = -1
+    best_score = (0, 0)
+    for g1 in range(6):
+        for g2 in range(6):
+            p_h = np.exp(-exp_g1) * (exp_g1 ** g1) / math.factorial(g1)
+            p_a = np.exp(-exp_g2) * (exp_g2 ** g2) / math.factorial(g2)
+            p_joint = p_h * p_a
+            if p_joint > max_p:
+                max_p = p_joint
+                best_score = (g1, g2)
+                
+    scorers1 = get_player_goalscorer_probs(team1, exp_g1)
+    scorers2 = get_player_goalscorer_probs(team2, exp_g2)
+    
+    print("=" * 60)
+    print(f"MATCH PREDICTION: {team1} vs {team2}")
+    print("=" * 60)
+    print(f"  ELO Ratings: {team1} ({elo1:.1f}) | {team2} ({elo2:.1f})")
+    print(f"  Expected Goals: {team1} ({exp_g1:.2f}) | {team2} ({exp_g2:.2f})")
+    print(f"  Advancing Probability (Knockout): {team1} ({win_pct:.1%}) | {team2} ({lose_pct:.1%})")
+    print(f"  Predicted Scoreline: {best_score[0]} - {best_score[1]} (Joint Prob: {max_p:.1%})")
+    print("-" * 60)
+    print(f"  Top Goalscorer Probabilities for {team1}:")
+    for name, p in scorers1:
+        print(f"    - {name}: {p:.1%}")
+    print(f"  Top Goalscorer Probabilities for {team2}:")
+    for name, p in scorers2:
+        print(f"    - {name}: {p:.1%}")
+    print("=" * 60)
+
+predict_custom_match("Brazil", "Norway", neutral=True)
+
+def simulate_single_match(t1, t2, elos_dict, is_knockout=True):
+    elo1 = elos_dict[t1]
+    elo2 = elos_dict[t2]
+    elo_diff = elo1 - elo2
+    
+    features_df = pd.DataFrame([[elo_diff, 1, elo1, elo2]], 
+                               columns=["elo_diff", "neutral", "home_elo", "away_elo"])
+    probs = rf_model.predict_proba(features_df)[0]
+    
+    if is_knockout:
+        p_win = probs[2] / (probs[0] + probs[2])
+        p_lose = probs[0] / (probs[0] + probs[2])
+        winner = np.random.choice([t1, t2], p=[p_win, p_lose])
+        # Update ELOs dynamically
+        expected_1 = 1.0 / (1.0 + 10.0 ** (-elo_diff / 400.0))
+        outcome_1 = 1.0 if winner == t1 else 0.0
+        elos_dict[t1] = elo1 + 60 * (outcome_1 - expected_1)
+        elos_dict[t2] = elo2 + 60 * ((1.0 - outcome_1) - (1.0 - expected_1))
+        return winner
+    else:
+        outcome = np.random.choice([0, 1, 2], p=probs)
+        outcome_1 = 1.0 if outcome == 2 else (0.5 if outcome == 1 else 0.0)
+        expected_1 = 1.0 / (1.0 + 10.0 ** (-elo_diff / 400.0))
+        elos_dict[t1] = elo1 + 40 * (outcome_1 - expected_1)
+        elos_dict[t2] = elo2 + 40 * ((1.0 - outcome_1) - (1.0 - expected_1))
+        return outcome
+
+simulations = 5000
+team_reach = {t: {"R16": 0, "QF": 0, "SF": 0, "Final": 0, "Winner": 0} for t in teams_df["clean_name"]}
+
+r16_teams = ["Canada", "Morocco", "Paraguay", "France", "Brazil", "Norway", "Mexico", "England", "Portugal", "Spain", "USA", "Belgium", "Argentina", "Egypt", "Switzerland", "Colombia"]
+
+for _ in range(simulations):
+    elos_sim = team_elos.copy()
+    
+    r16_winners = {
+        "Morocco": "Morocco",
+        "France": "France"
+    }
+    
+    r16_winners["Brazil/Norway"] = simulate_single_match("Brazil", "Norway", elos_sim)
+    r16_winners["Mexico/England"] = simulate_single_match("Mexico", "England", elos_sim)
+    r16_winners["Portugal/Spain"] = simulate_single_match("Portugal", "Spain", elos_sim)
+    r16_winners["USA/Belgium"] = simulate_single_match("USA", "Belgium", elos_sim)
+    r16_winners["Argentina/Egypt"] = simulate_single_match("Argentina", "Egypt", elos_sim)
+    r16_winners["Switzerland/Colombia"] = simulate_single_match("Switzerland", "Colombia", elos_sim)
+    
+    for t in r16_teams:
+        team_reach[t]["R16"] += 1
+        
+    qf_winners = {}
+    qf_winners["Morocco/France"] = simulate_single_match(r16_winners["Morocco"], r16_winners["France"], elos_sim)
+    qf_winners["Brazil/Norway/Mexico/England"] = simulate_single_match(r16_winners["Brazil/Norway"], r16_winners["Mexico/England"], elos_sim)
+    qf_winners["Portugal/Spain/USA/Belgium"] = simulate_single_match(r16_winners["Portugal/Spain"], r16_winners["USA/Belgium"], elos_sim)
+    qf_winners["Argentina/Egypt/Switzerland/Colombia"] = simulate_single_match(r16_winners["Argentina/Egypt"], r16_winners["Switzerland/Colombia"], elos_sim)
+    
+    for t in qf_winners.values():
+        team_reach[t]["QF"] += 1
+        
+    sf_winners = {}
+    sf_winners["Morocco/France/Brazil/Norway/Mexico/England"] = simulate_single_match(qf_winners["Morocco/France"], qf_winners["Brazil/Norway/Mexico/England"], elos_sim)
+    sf_winners["Portugal/Spain/USA/Belgium/Argentina/Egypt/Switzerland/Colombia"] = simulate_single_match(qf_winners["Portugal/Spain/USA/Belgium"], qf_winners["Argentina/Egypt/Switzerland/Colombia"], elos_sim)
+    
+    for t in sf_winners.values():
+        team_reach[t]["SF"] += 1
+        
+    winner = simulate_single_match(sf_winners["Morocco/France/Brazil/Norway/Mexico/England"], sf_winners["Portugal/Spain/USA/Belgium/Argentina/Egypt/Switzerland/Colombia"], elos_sim)
+    
+    finalists = list(sf_winners.values())
+    for t in finalists:
+        team_reach[t]["Final"] += 1
+    team_reach[winner]["Winner"] += 1
+
+reach_df = pd.DataFrame.from_dict(team_reach, orient='index')
+reach_df = (reach_df / simulations) * 100
+reach_df = reach_df.loc[r16_teams].sort_values("Winner", ascending=False)
+
+print("Monte Carlo Champion Probabilities (Top 16 Teams):")
+print(reach_df[["QF", "SF", "Final", "Winner"]].round(2))
+
+plt.figure(figsize=(12, 6))
+sns.barplot(x=reach_df.index, y=reach_df["Winner"], palette="viridis")
+plt.xticks(rotation=45, ha="right")
+plt.ylabel("Probability of Winning World Cup (%)")
+plt.title("FIFA World Cup 2026 Champion Probabilities (5,000-run Monte Carlo Simulation)")
+plt.tight_layout()
+plt.show()

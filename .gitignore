@@ -1,0 +1,8 @@
+.env
+__pycache__/
+*.pyc
+.gemini/
+.agents/
+.vscode/
+.idea/
+*.log

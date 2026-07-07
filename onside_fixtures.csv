@@ -1,0 +1,105 @@
+id,type,round_or_group,matchday,kickoff_utc,home_code,away_code,venue_city,venue_stadium
+wc-a-md1-mex-rsa,group,A,1,2026-06-11T19:00:00.000Z,mex,rsa,Mexico City,Estadio Azteca
+wc-a-md1-kor-cze,group,A,1,2026-06-12T02:00:00.000Z,kor,cze,Zapopan,Estadio Akron
+wc-b-md1-can-bih,group,B,1,2026-06-12T19:00:00.000Z,can,bih,Toronto,BMO Field
+wc-d-md1-usa-par,group,D,1,2026-06-13T01:00:00.000Z,usa,par,Inglewood,SoFi Stadium
+wc-b-md1-qat-sui,group,B,1,2026-06-13T19:00:00.000Z,qat,sui,Santa Clara,Levi's Stadium
+wc-c-md1-bra-mar,group,C,1,2026-06-13T22:00:00.000Z,bra,mar,East Rutherford,MetLife Stadium
+wc-c-md1-hai-sco,group,C,1,2026-06-14T01:00:00.000Z,hai,sco,Foxborough,Gillette Stadium
+wc-d-md1-aus-tur,group,D,1,2026-06-14T04:00:00.000Z,aus,tur,Vancouver,BC Place
+wc-e-md1-ger-cuw,group,E,1,2026-06-14T17:00:00.000Z,ger,cuw,Houston,NRG Stadium
+wc-f-md1-ned-jpn,group,F,1,2026-06-14T20:00:00.000Z,ned,jpn,Arlington,AT&T Stadium
+wc-e-md1-civ-ecu,group,E,1,2026-06-14T23:00:00.000Z,civ,ecu,Philadelphia,Lincoln Financial Field
+wc-f-md1-swe-tun,group,F,1,2026-06-15T02:00:00.000Z,swe,tun,Guadalupe,Estadio BBVA
+wc-h-md1-esp-cpv,group,H,1,2026-06-15T16:00:00.000Z,esp,cpv,Atlanta,Mercedes-Benz Stadium
+wc-g-md1-bel-egy,group,G,1,2026-06-15T19:00:00.000Z,bel,egy,Seattle,Lumen Field
+wc-h-md1-ksa-uru,group,H,1,2026-06-15T22:00:00.000Z,ksa,uru,Miami Gardens,Hard Rock Stadium
+wc-g-md1-irn-nzl,group,G,1,2026-06-16T01:00:00.000Z,irn,nzl,Inglewood,SoFi Stadium
+wc-i-md1-fra-sen,group,I,1,2026-06-16T19:00:00.000Z,fra,sen,East Rutherford,MetLife Stadium
+wc-i-md1-irq-nor,group,I,1,2026-06-16T22:00:00.000Z,irq,nor,Foxborough,Gillette Stadium
+wc-j-md1-arg-alg,group,J,1,2026-06-17T01:00:00.000Z,arg,alg,Kansas City,Arrowhead Stadium
+wc-j-md1-aut-jor,group,J,1,2026-06-17T04:00:00.000Z,aut,jor,Santa Clara,Levi's Stadium
+wc-k-md1-por-cod,group,K,1,2026-06-17T17:00:00.000Z,por,cod,Houston,NRG Stadium
+wc-l-md1-eng-cro,group,L,1,2026-06-17T20:00:00.000Z,eng,cro,Arlington,AT&T Stadium
+wc-l-md1-gha-pan,group,L,1,2026-06-17T23:00:00.000Z,gha,pan,Toronto,BMO Field
+wc-k-md1-uzb-col,group,K,1,2026-06-18T02:00:00.000Z,uzb,col,Mexico City,Estadio Azteca
+wc-a-md2-cze-rsa,group,A,2,2026-06-18T16:00:00.000Z,cze,rsa,Atlanta,Mercedes-Benz Stadium
+wc-b-md2-sui-bih,group,B,2,2026-06-18T19:00:00.000Z,sui,bih,Inglewood,SoFi Stadium
+wc-b-md2-can-qat,group,B,2,2026-06-18T22:00:00.000Z,can,qat,Vancouver,BC Place
+wc-a-md2-mex-kor,group,A,2,2026-06-19T01:00:00.000Z,mex,kor,Zapopan,Estadio Akron
+wc-d-md2-usa-aus,group,D,2,2026-06-19T19:00:00.000Z,usa,aus,Seattle,Lumen Field
+wc-c-md2-sco-mar,group,C,2,2026-06-19T22:00:00.000Z,sco,mar,Foxborough,Gillette Stadium
+wc-c-md2-bra-hai,group,C,2,2026-06-20T00:30:00.000Z,bra,hai,Philadelphia,Lincoln Financial Field
+wc-d-md2-tur-par,group,D,2,2026-06-20T03:00:00.000Z,tur,par,Santa Clara,Levi's Stadium
+wc-f-md2-ned-swe,group,F,2,2026-06-20T17:00:00.000Z,ned,swe,Houston,NRG Stadium
+wc-e-md2-ger-civ,group,E,2,2026-06-20T20:00:00.000Z,ger,civ,Toronto,BMO Field
+wc-e-md2-ecu-cuw,group,E,2,2026-06-21T00:00:00.000Z,ecu,cuw,Kansas City,Arrowhead Stadium
+wc-f-md2-tun-jpn,group,F,2,2026-06-21T04:00:00.000Z,tun,jpn,Guadalupe,Estadio BBVA
+wc-h-md2-esp-ksa,group,H,2,2026-06-21T16:00:00.000Z,esp,ksa,Atlanta,Mercedes-Benz Stadium
+wc-g-md2-bel-irn,group,G,2,2026-06-21T19:00:00.000Z,bel,irn,Inglewood,SoFi Stadium
+wc-h-md2-uru-cpv,group,H,2,2026-06-21T22:00:00.000Z,uru,cpv,Miami Gardens,Hard Rock Stadium
+wc-g-md2-nzl-egy,group,G,2,2026-06-22T01:00:00.000Z,nzl,egy,Vancouver,BC Place
+wc-j-md2-arg-aut,group,J,2,2026-06-22T17:00:00.000Z,arg,aut,Arlington,AT&T Stadium
+wc-i-md2-fra-irq,group,I,2,2026-06-22T21:00:00.000Z,fra,irq,Philadelphia,Lincoln Financial Field
+wc-i-md2-nor-sen,group,I,2,2026-06-23T00:00:00.000Z,nor,sen,Toronto,BMO Field
+wc-j-md2-jor-alg,group,J,2,2026-06-23T03:00:00.000Z,jor,alg,Santa Clara,Levi's Stadium
+wc-k-md2-por-uzb,group,K,2,2026-06-23T17:00:00.000Z,por,uzb,Houston,NRG Stadium
+wc-l-md2-eng-gha,group,L,2,2026-06-23T20:00:00.000Z,eng,gha,Foxborough,Gillette Stadium
+wc-l-md2-pan-cro,group,L,2,2026-06-23T23:00:00.000Z,pan,cro,Foxborough,Gillette Stadium
+wc-k-md2-col-cod,group,K,2,2026-06-24T02:00:00.000Z,col,cod,Zapopan,Estadio Akron
+wc-b-md3-sui-can,group,B,3,2026-06-24T19:00:00.000Z,sui,can,Vancouver,BC Place
+wc-b-md3-bih-qat,group,B,3,2026-06-24T19:00:00.000Z,bih,qat,Seattle,Lumen Field
+wc-c-md3-mar-hai,group,C,3,2026-06-24T22:00:00.000Z,mar,hai,Atlanta,Mercedes-Benz Stadium
+wc-c-md3-sco-bra,group,C,3,2026-06-24T22:00:00.000Z,sco,bra,Miami Gardens,Hard Rock Stadium
+wc-a-md3-rsa-kor,group,A,3,2026-06-25T01:00:00.000Z,rsa,kor,Guadalupe,Estadio BBVA
+wc-a-md3-cze-mex,group,A,3,2026-06-25T01:00:00.000Z,cze,mex,Mexico City,Estadio Azteca
+wc-e-md3-cuw-civ,group,E,3,2026-06-25T20:00:00.000Z,cuw,civ,Philadelphia,Lincoln Financial Field
+wc-e-md3-ecu-ger,group,E,3,2026-06-25T20:00:00.000Z,ecu,ger,East Rutherford,MetLife Stadium
+wc-f-md3-tun-ned,group,F,3,2026-06-25T23:00:00.000Z,tun,ned,Kansas City,Arrowhead Stadium
+wc-f-md3-jpn-swe,group,F,3,2026-06-25T23:00:00.000Z,jpn,swe,Arlington,AT&T Stadium
+wc-d-md3-tur-usa,group,D,3,2026-06-26T02:00:00.000Z,tur,usa,Inglewood,SoFi Stadium
+wc-d-md3-par-aus,group,D,3,2026-06-26T02:00:00.000Z,par,aus,Santa Clara,Levi's Stadium
+wc-i-md3-nor-fra,group,I,3,2026-06-26T19:00:00.000Z,nor,fra,Foxborough,Gillette Stadium
+wc-i-md3-sen-irq,group,I,3,2026-06-26T19:00:00.000Z,sen,irq,Toronto,BMO Field
+wc-h-md3-cpv-ksa,group,H,3,2026-06-27T00:00:00.000Z,cpv,ksa,Houston,NRG Stadium
+wc-h-md3-uru-esp,group,H,3,2026-06-27T00:00:00.000Z,uru,esp,Zapopan,Estadio Akron
+wc-g-md3-nzl-bel,group,G,3,2026-06-27T03:00:00.000Z,nzl,bel,Vancouver,BC Place
+wc-g-md3-egy-irn,group,G,3,2026-06-27T03:00:00.000Z,egy,irn,Seattle,Lumen Field
+wc-l-md3-pan-eng,group,L,3,2026-06-27T21:00:00.000Z,pan,eng,East Rutherford,MetLife Stadium
+wc-l-md3-cro-gha,group,L,3,2026-06-27T21:00:00.000Z,cro,gha,Philadelphia,Lincoln Financial Field
+wc-k-md3-col-por,group,K,3,2026-06-27T23:30:00.000Z,col,por,Miami Gardens,Hard Rock Stadium
+wc-k-md3-cod-uzb,group,K,3,2026-06-27T23:30:00.000Z,cod,uzb,Atlanta,Mercedes-Benz Stadium
+wc-j-md3-alg-aut,group,J,3,2026-06-28T02:00:00.000Z,alg,aut,Kansas City,Arrowhead Stadium
+wc-j-md3-jor-arg,group,J,3,2026-06-28T02:00:00.000Z,jor,arg,Arlington,AT&T Stadium
+wc-r32-m73,ko,R32,,2026-06-28T19:00:00.000Z,,,Inglewood,SoFi Stadium
+wc-r32-m74,ko,R32,,2026-06-29T20:30:00.000Z,,,Foxborough,Gillette Stadium
+wc-r32-m75,ko,R32,,2026-06-30T01:00:00.000Z,,,Guadalupe,Estadio BBVA
+wc-r32-m76,ko,R32,,2026-06-29T17:00:00.000Z,,,Houston,NRG Stadium
+wc-r32-m77,ko,R32,,2026-06-30T21:00:00.000Z,,,East Rutherford,MetLife Stadium
+wc-r32-m78,ko,R32,,2026-06-30T17:00:00.000Z,,,Arlington,AT&T Stadium
+wc-r32-m79,ko,R32,,2026-07-01T01:00:00.000Z,,,Mexico City,Estadio Azteca
+wc-r32-m80,ko,R32,,2026-07-01T16:00:00.000Z,,,Atlanta,Mercedes-Benz Stadium
+wc-r32-m81,ko,R32,,2026-07-02T00:00:00.000Z,,,Santa Clara,Levi's Stadium
+wc-r32-m82,ko,R32,,2026-07-01T20:00:00.000Z,,,Seattle,Lumen Field
+wc-r32-m83,ko,R32,,2026-07-02T23:00:00.000Z,,,Toronto,BMO Field
+wc-r32-m84,ko,R32,,2026-07-02T19:00:00.000Z,,,Inglewood,SoFi Stadium
+wc-r32-m85,ko,R32,,2026-07-03T03:00:00.000Z,,,Vancouver,BC Place
+wc-r32-m86,ko,R32,,2026-07-03T22:00:00.000Z,,,Miami Gardens,Hard Rock Stadium
+wc-r32-m87,ko,R32,,2026-07-04T01:30:00.000Z,,,Kansas City,Arrowhead Stadium
+wc-r32-m88,ko,R32,,2026-07-03T18:00:00.000Z,,,Arlington,AT&T Stadium
+wc-r16-m89,ko,R16,,2026-07-04T21:00:00.000Z,,,Philadelphia,Lincoln Financial Field
+wc-r16-m90,ko,R16,,2026-07-04T17:00:00.000Z,,,Houston,NRG Stadium
+wc-r16-m91,ko,R16,,2026-07-05T20:00:00.000Z,,,East Rutherford,MetLife Stadium
+wc-r16-m92,ko,R16,,2026-07-06T00:00:00.000Z,,,Mexico City,Estadio Azteca
+wc-r16-m93,ko,R16,,2026-07-06T19:00:00.000Z,,,Arlington,AT&T Stadium
+wc-r16-m94,ko,R16,,2026-07-07T00:00:00.000Z,,,Seattle,Lumen Field
+wc-r16-m95,ko,R16,,2026-07-07T16:00:00.000Z,,,Atlanta,Mercedes-Benz Stadium
+wc-r16-m96,ko,R16,,2026-07-07T20:00:00.000Z,,,Vancouver,BC Place
+wc-qf-m97,ko,QF,,2026-07-09T20:00:00.000Z,,,Foxborough,Gillette Stadium
+wc-qf-m98,ko,QF,,2026-07-10T19:00:00.000Z,,,Inglewood,SoFi Stadium
+wc-qf-m99,ko,QF,,2026-07-11T21:00:00.000Z,,,Miami Gardens,Hard Rock Stadium
+wc-qf-m100,ko,QF,,2026-07-12T01:00:00.000Z,,,Kansas City,Arrowhead Stadium
+wc-sf-m101,ko,SF,,2026-07-14T19:00:00.000Z,,,Arlington,AT&T Stadium
+wc-sf-m102,ko,SF,,2026-07-15T19:00:00.000Z,,,Atlanta,Mercedes-Benz Stadium
+wc-3rd-m103,ko,3RD,,2026-07-18T21:00:00.000Z,,,Miami Gardens,Hard Rock Stadium
+wc-final-m104,ko,FINAL,,2026-07-19T19:00:00.000Z,,,East Rutherford,MetLife Stadium

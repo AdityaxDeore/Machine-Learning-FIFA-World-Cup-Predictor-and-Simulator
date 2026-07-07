@@ -1,0 +1,49 @@
+rank,team_code,team_name,group,confederation,champion_pct,reach_final_pct,reach_semi_pct,reach_qf_pct,reach_r16_pct
+1,fra,France,I,UEFA,20.96,31.96,47.32,65.46,94.44
+2,eng,England,L,UEFA,17.08,30.16,45.36,65.60,92.48
+3,esp,Spain,H,UEFA,15.04,25.84,38.78,82.04,89.18
+4,arg,Argentina,J,CONMEBOL,10.38,19.10,45.48,70.02,90.56
+5,bra,Brazil,C,CONMEBOL,8.72,21.26,40.86,59.88,85.48
+6,por,Portugal,K,UEFA,4.90,9.26,21.98,44.94,64.88
+7,bel,Belgium,G,UEFA,4.74,12.48,25.60,54.80,73.68
+8,ger,Germany,E,UEFA,3.86,10.12,20.82,54.72,65.36
+9,mex,Mexico,A,CONCACAF,3.04,7.56,16.28,24.96,66.70
+10,usa,United States,D,CONCACAF,2.34,6.08,13.86,32.72,88.28
+11,ned,Netherlands,F,UEFA,2.30,4.68,11.52,23.98,35.12
+12,cro,Croatia,L,UEFA,1.68,4.42,10.14,28.56,34.64
+13,mar,Morocco,C,CAF,1.44,3.84,12.34,27.84,81.76
+14,col,Colombia,K,CONMEBOL,1.22,4.02,12.82,25.74,67.84
+15,sui,Switzerland,B,UEFA,0.60,1.92,7.48,23.62,72.06
+16,can,Canada,B,CONCACAF,0.46,2.22,9.48,33.42,93.26
+17,sen,Senegal,I,CAF,0.46,1.60,4.32,10.76,33.30
+18,jpn,Japan,F,AFC,0.36,1.46,4.76,10.40,32.16
+19,aut,Austria,J,UEFA,0.20,0.74,2.90,10.58,26.32
+20,ecu,Ecuador,E,CONMEBOL,0.14,0.68,2.70,7.32,27.06
+21,aus,Australia,D,AFC,0.06,0.16,1.80,13.94,74.86
+22,nor,Norway,I,UEFA,0.02,0.24,1.30,7.76,10.82
+23,rsa,South Africa,A,CAF,0.00,0.00,0.02,0.98,16.28
+24,kor,South Korea,A,AFC,0.00,0.00,0.00,0.00,0.00
+25,cze,Czechia,A,UEFA,0.00,0.00,0.00,0.00,0.00
+26,bih,Bosnia & Herzegovina,B,UEFA,0.00,0.00,0.00,0.42,6.74
+27,qat,Qatar,B,AFC,0.00,0.00,0.00,0.00,0.00
+28,hai,Haiti,C,CONCACAF,0.00,0.00,0.00,0.00,0.00
+29,sco,Scotland,C,UEFA,0.00,0.00,0.00,0.00,0.00
+30,par,Paraguay,D,CONMEBOL,0.00,0.10,0.76,8.00,83.72
+31,tur,Türkiye,D,UEFA,0.00,0.00,0.00,0.00,0.00
+32,cuw,Curaçao,E,CONCACAF,0.00,0.00,0.00,0.00,0.00
+33,civ,Ivory Coast,E,CAF,0.00,0.00,0.04,1.02,7.52
+34,swe,Sweden,F,UEFA,0.00,0.00,0.16,1.54,11.72
+35,tun,Tunisia,F,CAF,0.00,0.00,0.00,0.00,0.00
+36,egy,Egypt,G,CAF,0.00,0.04,0.58,3.28,9.44
+37,irn,Iran,G,AFC,0.00,0.00,0.00,0.00,0.00
+38,nzl,New Zealand,G,OFC,0.00,0.00,0.00,0.00,0.00
+39,cpv,Cape Verde,H,CAF,0.00,0.00,0.04,0.38,5.56
+40,ksa,Saudi Arabia,H,AFC,0.00,0.00,0.00,0.00,0.00
+41,uru,Uruguay,H,CONMEBOL,0.00,0.00,0.00,0.00,0.00
+42,irq,Iraq,I,AFC,0.00,0.00,0.00,0.00,0.00
+43,alg,Algeria,J,CAF,0.00,0.06,0.44,3.26,27.94
+44,jor,Jordan,J,AFC,0.00,0.00,0.00,0.00,0.00
+45,cod,DR Congo,K,CAF,0.00,0.00,0.04,1.80,25.14
+46,uzb,Uzbekistan,K,AFC,0.00,0.00,0.00,0.00,0.00
+47,gha,Ghana,L,CAF,0.00,0.00,0.02,0.26,5.70
+48,pan,Panama,L,CONCACAF,0.00,0.00,0.00,0.00,0.00
