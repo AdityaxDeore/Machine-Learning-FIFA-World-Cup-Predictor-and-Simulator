@@ -1,19 +1,12 @@
 # FIFA World Cup 2026 Winner Predictor & Simulator
 
 <p align="center">
-  <img src="images/mainimage/11.png" width="90%" alt="Main Predictor Screen" />
+  <img src="images/mainimage/11.png" width="90%" alt="Main Predictor Screen" /><br/><br/>
+  <img src="images/mainimage/1112.png" width="90%" alt="Match Outcome Forecast" /><br/><br/>
+  <img src="images/mainimage/122.png" width="90%" alt="Matchup Setup" /><br/><br/>
+  <img src="images/mainimage/1222222.png" width="90%" alt="Detailed Stats Comparison" /><br/><br/>
+  <img src="images/mainimage/12222122.png" width="90%" alt="Top Scorer Probabilities" />
 </p>
-
-<table align="center">
-  <tr>
-    <td width="50%"><img src="images/mainimage/1112.png" alt="Match Outcome Forecast" /></td>
-    <td width="50%"><img src="images/mainimage/1222222.png" alt="Detailed Stats Comparison" /></td>
-  </tr>
-  <tr>
-    <td width="50%"><img src="images/mainimage/122.png" alt="Matchup Setup" /></td>
-    <td width="50%"><img src="images/mainimage/12222122.png" alt="Top Scorer Probabilities" /></td>
-  </tr>
-</table>
 
 An AI-powered, machine learning application that predicts international football matches and simulates the FIFA World Cup 2026 knockout stages using historical data since 1872.
 
@@ -104,30 +97,3 @@ The predicted match scoreline is chosen as the argmax (mode) of $\text{P}(G_1 = 
 - **Draw**: $g_1 = g_2$
 - **Away Win**: $g_1 < g_2$
 
----
-
-## Project Presentation & Methodology Slides
-
-Here are the detailed presentation slides outlining the tournament simulation rules, logic, and dataset context:
-
-<details>
-  <summary>Click to expand and view the 15 presentation slides</summary>
-  <br/>
-  <p align="center">
-    <img src="images/FIFA-simulator_page-0001.jpg" width="90%" alt="Page 1" /><br/><br/>
-    <img src="images/FIFA-simulator_page-0002.jpg" width="90%" alt="Page 2" /><br/><br/>
-    <img src="images/FIFA-simulator_page-0003.jpg" width="90%" alt="Page 3" /><br/><br/>
-    <img src="images/FIFA-simulator_page-0004.jpg" width="90%" alt="Page 4" /><br/><br/>
-    <img src="images/FIFA-simulator_page-0005.jpg" width="90%" alt="Page 5" /><br/><br/>
-    <img src="images/FIFA-simulator_page-0006.jpg" width="90%" alt="Page 6" /><br/><br/>
-    <img src="images/FIFA-simulator_page-0007.jpg" width="90%" alt="Page 7" /><br/><br/>
-    <img src="images/FIFA-simulator_page-0008.jpg" width="90%" alt="Page 8" /><br/><br/>
-    <img src="images/FIFA-simulator_page-0009.jpg" width="90%" alt="Page 9" /><br/><br/>
-    <img src="images/FIFA-simulator_page-0010.jpg" width="90%" alt="Page 10" /><br/><br/>
-    <img src="images/FIFA-simulator_page-0011.jpg" width="90%" alt="Page 11" /><br/><br/>
-    <img src="images/FIFA-simulator_page-0012.jpg" width="90%" alt="Page 12" /><br/><br/>
-    <img src="images/FIFA-simulator_page-0013.jpg" width="90%" alt="Page 13" /><br/><br/>
-    <img src="images/FIFA-simulator_page-0014.jpg" width="90%" alt="Page 14" /><br/><br/>
-    <img src="images/FIFA-simulator_page-0015.jpg" width="90%" alt="Page 15" />
-  </p>
-</details>
